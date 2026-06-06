@@ -105,7 +105,7 @@ jobs:
                 <span class="tag tag-green">OpenAPI 3.0</span>
               </a>
 
-              <a class="card" href="jsdoc/js.html">
+              <a class="card" href="jsdoc/documentacion.html">
                 <div class="card-icon">📄</div>
                 <h2>Código — JSDoc</h2>
                 <p>Documentación de los módulos del backend: <code>server.js</code>, <code>database.js</code> y <code>swagger.js</code>.</p>
@@ -126,7 +126,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: '_site'
+          path: "_site"
 
       - name: Deploy to GitHub Pages
         id: deployment
