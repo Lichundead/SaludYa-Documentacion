@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SaludYa — Documentación JSDoc del Backend</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue:    #2563EB;
+      --blue-dk: #1d4ed8;
+      --green:   #16a34a;
+      --gray-50: #f8fafc;
+      --gray-100:#f1f5f9;
+      --gray-200:#e2e8f0;
+      --gray-400:#94a3b8;
+      --gray-600:#475569;
+      --gray-700:#334155;
+      --gray-900:#0f172a;
+      --sidebar: 260px;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: var(--gray-50);
+      color: var(--gray-900);
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* ── Sidebar ─────────────────────────────────────────────────── */
+    nav {
+      width: var(--sidebar);
+      min-width: var(--sidebar);
+      background: var(--gray-900);
+      color: #cbd5e1;
+      padding: 0;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+      flex-shrink: 0;
+    }
+
+    .nav-brand {
+      background: var(--blue);
+      padding: 20px 18px;
+      color: #fff;
+    }
+    .nav-brand h2 { font-size: 17px; font-weight: 700; }
+    .nav-brand p  { font-size: 11px; opacity: .8; margin-top: 3px; }
+
+    nav ul { list-style: none; padding: 10px 0; }
+    nav ul li a {
+      display: block;
+      padding: 8px 18px;
+      font-size: 13px;
+      color: #94a3b8;
+      text-decoration: none;
+      border-left: 3px solid transparent;
+      transition: background .15s, color .15s, border-color .15s;
+    }
+    nav ul li a:hover,
+    nav ul li a.active {
+      background: rgba(255,255,255,.06);
+      color: #e2e8f0;
+      border-left-color: var(--blue);
+    }
+
+    .nav-section {
+      padding: 10px 18px 4px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: #475569;
+      margin-top: 8px;
+    }
+
+    /* ── Main content ─────────────────────────────────────────────── */
+    main {
+      flex: 1;
+      padding: 40px 48px;
+      max-width: 900px;
+    }
+
+    /* ── Page header ─────────────────────────────────────────────── */
+    .page-header {
+      border-bottom: 2px solid var(--gray-200);
+      padding-bottom: 24px;
+      margin-bottom: 36px;
+    }
+    .page-header h1 { font-size: 28px; font-weight: 800; color: var(--blue); }
+    .page-header p  { margin-top: 8px; color: var(--gray-600); font-size: 15px; line-height: 1.6; }
+    .badge {
+      display: inline-block;
+      padding: 2px 10px;
+      border-radius: 9999px;
+      font-size: 11px;
+      font-weight: 600;
+      margin-right: 6px;
+      margin-top: 8px;
+    }
+    .badge-version { background: #dbeafe; color: #1d4ed8; }
+    .badge-license { background: #dcfce7; color: #15803d; }
+    .badge-module  { background: #fef3c7; color: #92400e; }
+
+    /* ── Section / module blocks ─────────────────────────────────── */
+    .module {
+      background: #fff;
+      border: 1px solid var(--gray-200);
+      border-radius: 10px;
+      margin-bottom: 36px;
+      overflow: hidden;
+    }
+    .module-header {
+      background: var(--gray-100);
+      border-bottom: 1px solid var(--gray-200);
+      padding: 14px 22px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .module-header h2 {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--gray-900);
+    }
+    .module-header .filepath {
+      font-size: 12px;
+      color: var(--gray-400);
+      font-family: "SFMono-Regular", Consolas, monospace;
+    }
+    .module-body { padding: 22px; }
+    .module-desc {
+      color: var(--gray-600);
+      font-size: 14px;
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+
+    /* ── Symbol (function / constant) ───────────────────────────── */
+    .symbol {
+      border: 1px solid var(--gray-200);
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+    .symbol-header {
+      padding: 12px 16px;
+      background: var(--gray-50);
+      border-bottom: 1px solid var(--gray-200);
+      border-radius: 8px 8px 0 0;
+    }
+    .symbol-header h3 {
+      font-family: "SFMono-Regular", Consolas, monospace;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--blue-dk);
+    }
+    .symbol-header .kind {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      padding: 2px 8px;
+      border-radius: 4px;
+      margin-right: 8px;
+    }
+    .kind-function { background: #ede9fe; color: #6d28d9; }
+    .kind-constant { background: #fef3c7; color: #92400e; }
+    .kind-member   { background: #e0f2fe; color: #0369a1; }
+    .kind-file     { background: #dcfce7; color: #15803d; }
+
+    .symbol-body { padding: 14px 16px; }
+    .symbol-desc {
+      color: var(--gray-600);
+      font-size: 13.5px;
+      line-height: 1.65;
+      margin-bottom: 14px;
+    }
+
+    /* ── Params table ─────────────────────────────────────────────── */
+    h4 { font-size: 12px; font-weight: 700; text-transform: uppercase;
+         letter-spacing: .06em; color: var(--gray-400); margin-bottom: 8px; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      margin-bottom: 14px;
+    }
+    th {
+      text-align: left;
+      padding: 7px 12px;
+      background: var(--gray-100);
+      border: 1px solid var(--gray-200);
+      font-size: 11.5px;
+      font-weight: 700;
+      color: var(--gray-700);
+    }
+    td {
+      padding: 7px 12px;
+      border: 1px solid var(--gray-200);
+      vertical-align: top;
+      color: var(--gray-700);
+      line-height: 1.5;
+    }
+    td code, th code {
+      font-family: "SFMono-Regular", Consolas, monospace;
+      background: var(--gray-100);
+      padding: 1px 5px;
+      border-radius: 3px;
+      font-size: 12px;
+      color: var(--blue-dk);
+    }
+    .type-cell { font-family: "SFMono-Regular", Consolas, monospace;
+                 color: var(--green); font-size: 12px; }
+
+    /* ── Returns ─────────────────────────────────────────────────── */
+    .returns {
+      background: var(--gray-50);
+      border: 1px solid var(--gray-200);
+      border-radius: 6px;
+      padding: 10px 14px;
+      font-size: 13px;
+      color: var(--gray-700);
+      margin-bottom: 10px;
+    }
+    .returns .return-type {
+      font-family: "SFMono-Regular", Consolas, monospace;
+      color: var(--green);
+      font-weight: 700;
+    }
+
+    /* ── Source block ─────────────────────────────────────────────── */
+    .source-block {
+      background: var(--gray-900);
+      color: #e2e8f0;
+      border-radius: 6px;
+      padding: 14px 16px;
+      font-family: "SFMono-Regular", Consolas, monospace;
+      font-size: 12.5px;
+      line-height: 1.6;
+      overflow-x: auto;
+      margin-top: 10px;
+    }
+    .kw   { color: #93c5fd; }
+    .str  { color: #86efac; }
+    .cmt  { color: #6b7280; font-style: italic; }
+    .fn   { color: #fde68a; }
+    .val  { color: #f9a8d4; }
+
+    /* ── Schema section ───────────────────────────────────────────── */
+    .schemas { margin-top: 10px; }
+    .schema-card {
+      border: 1px solid var(--gray-200);
+      border-radius: 8px;
+      margin-bottom: 16px;
+    }
+    .schema-title {
+      background: var(--gray-100);
+      border-bottom: 1px solid var(--gray-200);
+      padding: 10px 16px;
+      font-weight: 700;
+      font-size: 14px;
+      font-family: "SFMono-Regular", Consolas, monospace;
+      border-radius: 8px 8px 0 0;
+    }
+    .schema-body { padding: 0; }
+
+    /* ── Misc ─────────────────────────────────────────────────────── */
+    .toc-list { list-style: none; margin-bottom: 28px; }
+    .toc-list li { padding: 4px 0; font-size: 13.5px; }
+    .toc-list li a { color: var(--blue); text-decoration: none; }
+    .toc-list li a:hover { text-decoration: underline; }
+
+    .file-tag {
+      font-family: "SFMono-Regular", Consolas, monospace;
+      font-size: 12px;
+      background: var(--gray-100);
+      border: 1px solid var(--gray-200);
+      border-radius: 4px;
+      padding: 2px 8px;
+      color: var(--gray-600);
+    }
+
+    hr.sep { border: none; border-top: 1px solid var(--gray-200); margin: 30px 0; }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════ SIDEBAR ═══════════════════════ -->
+<nav>
+  <div class="nav-brand">
+    <h2>SaludYa — JSDoc</h2>
+    <p>Documentación del Backend</p>
+  </div>
+  <ul>
+    <li><a href="#overview" class="active">Visión general</a></li>
+  </ul>
+
+  <div class="nav-section">Módulos</div>
+  <ul>
+    <li><a href="#module-server">server.js</a></li>
+    <li><a href="#module-database">database.js</a></li>
+    <li><a href="#module-swagger">swagger.js</a></li>
+  </ul>
+
+  <div class="nav-section">Funciones</div>
+  <ul>
+    <li><a href="#fn-loginHandler">loginHandler</a></li>
+    <li><a href="#fn-registerHandler">registerHandler</a></li>
+    <li><a href="#fn-getUsuarioHandler">getUsuarioHandler</a></li>
+    <li><a href="#fn-crearCitaHandler">crearCitaHandler</a></li>
+    <li><a href="#fn-getCitasHandler">getCitasHandler</a></li>
+  </ul>
+
+  <div class="nav-section">Constantes</div>
+  <ul>
+    <li><a href="#const-db">db</a></li>
+    <li><a href="#const-swaggerSpec">swaggerSpec</a></li>
+    <li><a href="#const-PORT">PORT</a></li>
+  </ul>
+
+  <div class="nav-section">Esquemas</div>
+  <ul>
+    <li><a href="#schema-usuario">Usuario</a></li>
+    <li><a href="#schema-cita">Cita</a></li>
+  </ul>
+</nav>
+
+<!-- ═══════════════════════ MAIN ═══════════════════════════ -->
+<main>
+
+  <!-- ── Page header ── -->
+  <div class="page-header" id="overview">
+    <h1>SaludYa — Documentación del Backend</h1>
+    <p>
+      Documentación generada con <strong>JSDoc</strong> de los módulos del servidor
+      (<code>server.js</code>, <code>database.js</code>, <code>swagger.js</code>).
+      El backend implementa una API REST con <strong>Node.js + Express</strong> y persiste
+      los datos en <strong>SQLite</strong> mediante <code>better-sqlite3</code>.
+    </p>
+    <div>
+      <span class="badge badge-version">v1.0.0</span>
+      <span class="badge badge-license">MIT</span>
+      <span class="badge badge-module">Node.js 22 · Express 5</span>
+    </div>
+  </div>
+
+  <!-- ── Table of contents ── -->
+  <h4>Contenido</h4>
+  <ul class="toc-list">
+    <li><a href="#module-server">module:server</a> — Punto de entrada de la API (Express)</li>
+    <li><a href="#module-database">module:database</a> — Conexión e inicialización de la base de datos SQLite</li>
+    <li><a href="#module-swagger">module:swagger</a> — Configuración de la documentación OpenAPI</li>
+  </ul>
+
+  <hr class="sep" />
+
+  <!-- ══════════════════════════════════════════════
+       MODULE: server.js
+  ══════════════════════════════════════════════ -->
+  <div class="module" id="module-server">
+    <div class="module-header">
+      <span class="badge badge-module">module</span>
+      <h2>server</h2>
+      <span class="filepath">codigo-documentado/server.js</span>
+    </div>
+    <div class="module-body">
+      <p class="module-desc">
+        Punto de entrada de la API REST de SaludYa. Configura el servidor Express,
+        el middleware (CORS, JSON), la documentación Swagger y registra los endpoints
+        de autenticación, usuarios y citas.
+      </p>
+
+      <!-- ── Middleware docs ── -->
+      <div class="symbol">
+        <div class="symbol-header">
+          <span class="kind kind-member">middleware</span>
+          <h3>cors()</h3>
+        </div>
+        <div class="symbol-body">
+          <p class="symbol-desc">
+            Permite peticiones entre dominios desde el frontend local
+            (<code>http://localhost:3000</code>) y desde el despliegue de Vercel
+            (<code>https://salud-ya-cicd.vercel.app</code>).
+          </p>
+          <div class="source-block">
+<span class="kw">app</span>.use(
+  cors({
+    origin: [<span class="str">"http://localhost:3000"</span>, <span class="str">"https://salud-ya-cicd.vercel.app"</span>],
+    credentials: <span class="val">true</span>,
+  })
+);</div>
+        </div>
+      </div>
+
+      <!-- ── loginHandler ── -->
+      <div class="symbol" id="fn-loginHandler">
+        <div class="symbol-header">
+          <span class="kind kind-function">function</span>
+          <h3>loginHandler(req, res)</h3>
+        </div>
+        <div class="symbol-body">
+          <p class="symbol-desc">
+            Autentica a un usuario validando su correo y contraseña contra la tabla
+            <code>usuarios</code>. Registrado en <code>POST /login</code>.
+          </p>
+
+          <h4>Parámetros</h4>
+          <table>
+            <thead>
+              <tr><th>Nombre</th><th>Tipo</th><th>Descripción</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>req</code></td>
+                <td class="type-cell">express.Request</td>
+                <td><code>req.body</code> debe contener <code>email</code> (string) y <code>password</code> (string).</td>
+              </tr>
+              <tr>
+                <td><code>res</code></td>
+                <td class="type-cell">express.Response</td>
+                <td>Respuesta HTTP en formato JSON.</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h4>Retorna</h4>
+          <div class="returns">
+            <span class="return-type">void</span> —
+            <code>{ success: true, user }</code> si las credenciales son válidas;
+            <code>{ success: false }</code> si no coinciden o si ocurre un error 500.
+          </div>
+
+          <div class="source-block">
+<span class="cmt">/** POST /login */</span>
+<span class="kw">app</span>.post(<span class="str">"/login"</span>, (req, res) => {
+  <span class="kw">const</span> { email, password } = req.body;
+  <span class="kw">const</span> user = db
+    .prepare(<span class="str">`SELECT * FROM usuarios WHERE email = ? AND password = ?`</span>)
+    .get(email, password);
+  <span class="kw">if</span> (user) <span class="kw">return</span> res.json({ success: <span class="val">true</span>, user });
+  res.json({ success: <span class="val">false</span> });
+});</div>
+        </div>
+      </div>
+
+      <!-- ── registerHandler ── -->
+      <div class="symbol" id="fn-registerHandler">
+        <div class="symbol-header">
+          <span class="kind kind-function">function</span>
+          <h3>registerHandler(req, res)</h3>
+        </div>
+        <div class="symbol-body">
+          <p class="symbol-desc">
+            Registra un nuevo usuario en la tabla <code>usuarios</code>.
+            El correo electrónico debe ser único; si ya existe, devuelve
+            <code>{ success: false }</code>. Registrado en <code>POST /register</code>.
+          </p>
+
+          <h4>Parámetros</h4>
+          <table>
+            <thead>
+              <tr><th>Nombre</th><th>Tipo</th><th>Descripción</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>req</code></td>
+                <td class="type-cell">express.Request</td>
+                <td>
+                  <code>req.body</code> con los campos del usuario:
+                  <code>nombre</code>, <code>email</code>, <code>password</code>,
+                  <code>telefono</code>, <code>tipo_id</code>, <code>numero_id</code>,
+                  <code>rh</code>. Los tres primeros son obligatorios.
+                </td>
+              </tr>
+              <tr>
+                <td><code>res</code></td>
+                <td class="type-cell">express.Response</td>
+                <td>Respuesta HTTP en formato JSON.</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h4>Retorna</h4>
+          <div class="returns">
+            <span class="return-type">void</span> —
+            <code>{ success: true, id }</code> con el <code>lastInsertRowid</code> del registro creado;
+            <code>{ success: false }</code> si el correo ya existe u ocurre otro error.
+          </div>
+
+          <div class="source-block">
+<span class="cmt">/** POST /register */</span>
+<span class="kw">app</span>.post(<span class="str">"/register"</span>, (req, res) => {
+  <span class="kw">const</span> { nombre, email, password, telefono, tipo_id, numero_id, rh } = req.body;
+  <span class="kw">const</span> result = db
+    .prepare(<span class="str">`INSERT INTO usuarios
+       (nombre, email, password, telefono, tipo_id, numero_id, rh)
+       VALUES (?, ?, ?, ?, ?, ?, ?)`</span>)
+    .run(nombre, email, password, telefono, tipo_id, numero_id, rh);
+  res.json({ success: <span class="val">true</span>, id: result.lastInsertRowid });
+});</div>
+        </div>
+      </div>
+
+      <!-- ── getUsuarioHandler ── -->
+      <div class="symbol" id="fn-getUsuarioHandler">
+        <div class="symbol-header">
+          <span class="kind kind-function">function</span>
+          <h3>getUsuarioHandler(req, res)</h3>
+        </div>
+        <div class="symbol-body">
+          <p class="symbol-desc">
+            Obtiene los datos de un usuario a partir de su correo electrónico.
+            Registrado en <code>GET /usuario/:email</code>.
+          </p>
+
+          <h4>Parámetros</h4>
+          <table>
+            <thead>
+              <tr><th>Nombre</th><th>Tipo</th><th>Descripción</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>req</code></td>
+                <td class="type-cell">express.Request</td>
+                <td><code>req.params.email</code> — correo del usuario a buscar.</td>
+              </tr>
+              <tr>
+                <td><code>res</code></td>
+                <td class="type-cell">express.Response</td>
+                <td>Respuesta HTTP en formato JSON.</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h4>Retorna</h4>
+          <div class="returns">
+            <span class="return-type">void</span> —
+            <code>{ success: true, user }</code> con el objeto del usuario (o
+            <code>undefined</code> si no existe en la BD);
+            <code>{ success: false }</code> ante error.
+          </div>
+
+          <div class="source-block">
+<span class="cmt">/** GET /usuario/:email */</span>
+<span class="kw">app</span>.get(<span class="str">"/usuario/:email"</span>, (req, res) => {
+  <span class="kw">const</span> user = db
+    .prepare(<span class="str">`SELECT * FROM usuarios WHERE email = ?`</span>)
+    .get(req.params.email);
+  res.json({ success: <span class="val">true</span>, user });
+});</div>
+        </div>
+      </div>
+
+      <!-- ── crearCitaHandler ── -->
+      <div class="symbol" id="fn-crearCitaHandler">
+        <div class="symbol-header">
+          <span class="kind kind-function">function</span>
+          <h3>crearCitaHandler(req, res)</h3>
+        </div>
+        <div class="symbol-body">
+          <p class="symbol-desc">
+            Crea una nueva cita médica en la tabla <code>citas</code>.
+            Registrado en <code>POST /citas</code>.
+          </p>
+
+          <h4>Parámetros</h4>
+          <table>
+            <thead>
+              <tr><th>Nombre</th><th>Tipo</th><th>Descripción</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>req</code></td>
+                <td class="type-cell">express.Request</td>
+                <td>
+                  <code>req.body</code> con:
+                  <code>paciente_email</code>, <code>especialidad</code>,
+                  <code>medico</code>, <code>fecha</code> (<code>YYYY-MM-DD</code>),
+                  <code>hora</code> (<code>HH:MM</code>). Todos obligatorios.
+                </td>
+              </tr>
+              <tr>
+                <td><code>res</code></td>
+                <td class="type-cell">express.Response</td>
+                <td>Respuesta HTTP en formato JSON.</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h4>Retorna</h4>
+          <div class="returns">
+            <span class="return-type">void</span> —
+            <code>{ success: true, id }</code> con el <code>lastInsertRowid</code> de la cita;
+            <code>{ success: false }</code> ante error.
+          </div>
+
+          <div class="source-block">
+<span class="cmt">/** POST /citas */</span>
+<span class="kw">app</span>.post(<span class="str">"/citas"</span>, (req, res) => {
+  <span class="kw">const</span> { paciente_email, especialidad, medico, fecha, hora } = req.body;
+  <span class="kw">const</span> result = db
+    .prepare(<span class="str">`INSERT INTO citas
+       (paciente_email, especialidad, medico, fecha, hora)
+       VALUES (?, ?, ?, ?, ?)`</span>)
+    .run(paciente_email, especialidad, medico, fecha, hora);
+  res.json({ success: <span class="val">true</span>, id: result.lastInsertRowid });
+});</div>
+        </div>
+      </div>
+
+      <!-- ── getCitasHandler ── -->
+      <div class="symbol" id="fn-getCitasHandler">
+        <div class="symbol-header">
+          <span class="kind kind-function">function</span>
+          <h3>getCitasHandler(req, res)</h3>
+        </div>
+        <div class="symbol-body">
+          <p class="symbol-desc">
+            Obtiene todas las citas asociadas al correo de un paciente.
+            Registrado en <code>GET /citas/:email</code>.
+          </p>
+
+          <h4>Parámetros</h4>
+          <table>
+            <thead>
+              <tr><th>Nombre</th><th>Tipo</th><th>Descripción</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>req</code></td>
+                <td class="type-cell">express.Request</td>
+                <td><code>req.params.email</code> — correo del paciente.</td>
+              </tr>
+              <tr>
+                <td><code>res</code></td>
+                <td class="type-cell">express.Response</td>
+                <td>Respuesta HTTP en formato JSON.</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h4>Retorna</h4>
+          <div class="returns">
+            <span class="return-type">void</span> —
+            <code>{ success: true, citas }</code> con el arreglo de citas (vacío si no hay);
+            <code>{ success: false }</code> ante error.
+          </div>
+
+          <div class="source-block">
+<span class="cmt">/** GET /citas/:email */</span>
+<span class="kw">app</span>.get(<span class="str">"/citas/:email"</span>, (req, res) => {
+  <span class="kw">const</span> citas = db
+    .prepare(<span class="str">`SELECT * FROM citas WHERE paciente_email = ?`</span>)
+    .all(req.params.email);
+  res.json({ success: <span class="val">true</span>, citas });
+});</div>
+        </div>
+      </div>
+
+      <!-- ── PORT constant ── -->
+      <div class="symbol" id="const-PORT">
+        <div class="symbol-header">
+          <span class="kind kind-constant">constant</span>
+          <h3>PORT</h3>
+        </div>
+        <div class="symbol-body">
+          <p class="symbol-desc">
+            Puerto en el que escucha el servidor. En producción, Render inyecta
+            <code>process.env.PORT</code>; en desarrollo local se usa <code>3001</code>.
+          </p>
+          <h4>Tipo</h4>
+          <div class="returns"><span class="return-type">number</span></div>
+          <div class="source-block">
+<span class="kw">const</span> PORT = process.env.PORT || <span class="val">3001</span>;</div>
+        </div>
+      </div>
+
+    </div><!-- /module-body -->
+  </div><!-- /module server -->
+
+  <!-- ══════════════════════════════════════════════
+       MODULE: database.js
+  ══════════════════════════════════════════════ -->
+  <div class="module" id="module-database">
+    <div class="module-header">
+      <span class="badge badge-module">module</span>
+      <h2>database</h2>
+      <span class="filepath">codigo-documentado/database.js</span>
+    </div>
+    <div class="module-body">
+      <p class="module-desc">
+        Inicializa la base de datos SQLite de SaludYa mediante <code>better-sqlite3</code>.
+        Crea las tablas <code>usuarios</code> y <code>citas</code> si no existen e inserta
+        usuarios de demostración. Exporta la instancia de conexión para ser usada por la API.
+      </p>
+
+      <!-- db constant -->
+      <div class="symbol" id="const-db">
+        <div class="symbol-header">
+          <span class="kind kind-constant">constant</span>
+          <h3>db</h3>
+        </div>
+        <div class="symbol-body">
+          <p class="symbol-desc">
+            Instancia de conexión a la base de datos SQLite. El archivo <code>saludya.db</code>
+            se crea automáticamente en el primer arranque del backend, en el directorio raíz
+            del servicio.
+          </p>
+
+          <h4>Tipo</h4>
+          <div class="returns"><span class="return-type">Database</span> (better-sqlite3)</div>
+
+          <div class="source-block">
+<span class="kw">const</span> Database = require(<span class="str">"better-sqlite3"</span>);
+<span class="kw">const</span> db = <span class="kw">new</span> Database(<span class="str">"./saludya.db"</span>);</div>
+        </div>
+      </div>
+
+      <!-- Schema init -->
+      <div class="symbol">
+        <div class="symbol-header">
+          <span class="kind kind-member">init</span>
+          <h3>Inicialización del esquema</h3>
+        </div>
+        <div class="symbol-body">
+          <p class="symbol-desc">
+            Ejecuta <code>CREATE TABLE IF NOT EXISTS</code> para ambas tablas al
+            importar el módulo. No modifica datos si las tablas ya existen.
+          </p>
+
+          <h4>Tabla <code>usuarios</code></h4>
+          <table>
+            <thead>
+              <tr><th>Campo</th><th>Tipo SQL</th><th>Restricciones</th><th>Descripción</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><code>id</code></td><td class="type-cell">INTEGER</td><td>PK · AUTOINCREMENT</td><td>Identificador único</td></tr>
+              <tr><td><code>nombre</code></td><td class="type-cell">TEXT</td><td>—</td><td>Nombre completo</td></tr>
+              <tr><td><code>email</code></td><td class="type-cell">TEXT</td><td>UNIQUE</td><td>Correo electrónico (clave de negocio)</td></tr>
+              <tr><td><code>password</code></td><td class="type-cell">TEXT</td><td>—</td><td>Contraseña en texto plano (MVP)</td></tr>
+              <tr><td><code>telefono</code></td><td class="type-cell">TEXT</td><td>—</td><td>Número de teléfono</td></tr>
+              <tr><td><code>tipo_id</code></td><td class="type-cell">TEXT</td><td>—</td><td>Tipo de documento (CC, TI, etc.)</td></tr>
+              <tr><td><code>numero_id</code></td><td class="type-cell">TEXT</td><td>—</td><td>Número del documento</td></tr>
+              <tr><td><code>rh</code></td><td class="type-cell">TEXT</td><td>—</td><td>Grupo sanguíneo</td></tr>
+            </tbody>
+          </table>
+
+          <h4>Tabla <code>citas</code></h4>
+          <table>
+            <thead>
+              <tr><th>Campo</th><th>Tipo SQL</th><th>Restricciones</th><th>Descripción</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><code>id</code></td><td class="type-cell">INTEGER</td><td>PK · AUTOINCREMENT</td><td>Identificador único</td></tr>
+              <tr><td><code>paciente_email</code></td><td class="type-cell">TEXT</td><td>FK lógica</td><td>Correo del paciente (relación con <code>usuarios.email</code>)</td></tr>
+              <tr><td><code>especialidad</code></td><td class="type-cell">TEXT</td><td>—</td><td>Especialidad médica</td></tr>
+              <tr><td><code>medico</code></td><td class="type-cell">TEXT</td><td>—</td><td>Nombre del médico asignado</td></tr>
+              <tr><td><code>fecha</code></td><td class="type-cell">TEXT</td><td>—</td><td>Fecha en formato <code>YYYY-MM-DD</code></td></tr>
+              <tr><td><code>hora</code></td><td class="type-cell">TEXT</td><td>—</td><td>Hora en formato <code>HH:MM</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- seed data -->
+      <div class="symbol">
+        <div class="symbol-header">
+          <span class="kind kind-constant">constant</span>
+          <h3>insert (sentencia preparada de seed)</h3>
+        </div>
+        <div class="symbol-body">
+          <p class="symbol-desc">
+            Sentencia preparada para insertar los usuarios de demostración al arrancar.
+            Usa <code>INSERT OR IGNORE</code> para que los reinicios del servidor no
+            dupliquen los registros.
+          </p>
+
+          <h4>Usuarios de demostración</h4>
+          <table>
+            <thead>
+              <tr><th>id</th><th>nombre</th><th>email</th><th>rol inferido</th><th>contraseña</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>1</td><td>Paciente Demo</td><td><code>demo@saludya.com</code></td><td>Paciente</td><td><code>123456</code></td></tr>
+              <tr><td>2</td><td>Administrador Demo</td><td><code>admin@saludya.com</code></td><td>Administrador</td><td><code>123456</code></td></tr>
+              <tr><td>3</td><td>Medico Demo</td><td><code>medico@saludya.com</code></td><td>Médico</td><td><code>123456</code></td></tr>
+            </tbody>
+          </table>
+
+          <div class="source-block">
+<span class="kw">const</span> insert = db.prepare(<span class="str">`
+  INSERT OR IGNORE INTO usuarios
+  (id, nombre, email, password, telefono, tipo_id, numero_id, rh)
+  VALUES (?, ?, ?, ?, ?, ?, ?, ?)`</span>);
+
+insert.run(<span class="val">1</span>, <span class="str">"Paciente Demo"</span>,      <span class="str">"demo@saludya.com"</span>,   <span class="str">"123456"</span>, ...);
+insert.run(<span class="val">2</span>, <span class="str">"Administrador Demo"</span>, <span class="str">"admin@saludya.com"</span>,  <span class="str">"123456"</span>, ...);
+insert.run(<span class="val">3</span>, <span class="str">"Medico Demo"</span>,        <span class="str">"medico@saludya.com"</span>, <span class="str">"123456"</span>, ...);</div>
+        </div>
+      </div>
+
+    </div>
+  </div><!-- /module database -->
+
+  <!-- ══════════════════════════════════════════════
+       MODULE: swagger.js
+  ══════════════════════════════════════════════ -->
+  <div class="module" id="module-swagger">
+    <div class="module-header">
+      <span class="badge badge-module">module</span>
+      <h2>swagger</h2>
+      <span class="filepath">codigo-documentado/swagger.js</span>
+    </div>
+    <div class="module-body">
+      <p class="module-desc">
+        Configuración de la documentación OpenAPI 3.0 de la API de SaludYa.
+        Usa <code>swagger-jsdoc</code> para generar la especificación a partir de las
+        anotaciones <code>@openapi</code> escritas en los comentarios de <code>server.js</code>.
+        La especificación resultante es consumida por <code>swagger-ui-express</code> en
+        la ruta <code>/api-docs</code>.
+      </p>
+
+      <!-- options constant -->
+      <div class="symbol">
+        <div class="symbol-header">
+          <span class="kind kind-constant">constant</span>
+          <h3>options</h3>
+        </div>
+        <div class="symbol-body">
+          <p class="symbol-desc">
+            Opciones de configuración para <code>swagger-jsdoc</code>. Define la información
+            de la API (título, versión, descripción, contacto, licencia), los servidores y
+            los esquemas de los modelos de datos (<code>Usuario</code> y <code>Cita</code>).
+          </p>
+          <h4>Tipo</h4>
+          <div class="returns"><span class="return-type">object</span></div>
+
+          <h4>Propiedad <code>definition.servers</code></h4>
+          <table>
+            <thead><tr><th>URL</th><th>Descripción</th></tr></thead>
+            <tbody>
+              <tr><td><code>http://localhost:3001</code></td><td>Servidor local de desarrollo</td></tr>
+              <tr><td><code>https://saludyacicd.onrender.com</code></td><td>Servidor de producción (Render)</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- swaggerSpec constant -->
+      <div class="symbol" id="const-swaggerSpec">
+        <div class="symbol-header">
+          <span class="kind kind-constant">constant</span>
+          <h3>swaggerSpec</h3>
+        </div>
+        <div class="symbol-body">
+          <p class="symbol-desc">
+            Especificación OpenAPI 3.0 generada a partir de las anotaciones
+            <code>@openapi</code> de <code>server.js</code> y la configuración
+            del objeto <code>options</code>. Es el valor exportado por este módulo y
+            pasado a <code>swaggerUi.setup()</code> en <code>server.js</code>.
+          </p>
+          <h4>Tipo</h4>
+          <div class="returns"><span class="return-type">object</span></div>
+          <div class="source-block">
+<span class="kw">const</span> swaggerSpec = swaggerJSDoc(options);
+module.exports = swaggerSpec;</div>
+        </div>
+      </div>
+
+      <!-- Schemas -->
+      <hr class="sep" />
+      <h4 id="schema-usuario">Esquemas OpenAPI definidos</h4>
+      <div class="schemas">
+
+        <div class="schema-card">
+          <div class="schema-title">Usuario</div>
+          <div class="schema-body">
+            <table>
+              <thead>
+                <tr><th>Propiedad</th><th>Tipo</th><th>Formato</th><th>Ejemplo</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><code>id</code></td><td class="type-cell">integer</td><td>—</td><td><code>1</code></td></tr>
+                <tr><td><code>nombre</code></td><td class="type-cell">string</td><td>—</td><td><code>"Paciente Demo"</code></td></tr>
+                <tr><td><code>email</code></td><td class="type-cell">string</td><td>email</td><td><code>"demo@saludya.com"</code></td></tr>
+                <tr><td><code>password</code></td><td class="type-cell">string</td><td>—</td><td><code>"123456"</code></td></tr>
+                <tr><td><code>telefono</code></td><td class="type-cell">string</td><td>—</td><td><code>"3000000000"</code></td></tr>
+                <tr><td><code>tipo_id</code></td><td class="type-cell">string</td><td>—</td><td><code>"CC"</code></td></tr>
+                <tr><td><code>numero_id</code></td><td class="type-cell">string</td><td>—</td><td><code>"12345678"</code></td></tr>
+                <tr><td><code>rh</code></td><td class="type-cell">string</td><td>—</td><td><code>"O+"</code></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="schema-card" id="schema-cita">
+          <div class="schema-title">Cita</div>
+          <div class="schema-body">
+            <table>
+              <thead>
+                <tr><th>Propiedad</th><th>Tipo</th><th>Formato</th><th>Ejemplo</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><code>id</code></td><td class="type-cell">integer</td><td>—</td><td><code>1</code></td></tr>
+                <tr><td><code>paciente_email</code></td><td class="type-cell">string</td><td>email</td><td><code>"demo@saludya.com"</code></td></tr>
+                <tr><td><code>especialidad</code></td><td class="type-cell">string</td><td>—</td><td><code>"Medicina general"</code></td></tr>
+                <tr><td><code>medico</code></td><td class="type-cell">string</td><td>—</td><td><code>"Paula García"</code></td></tr>
+                <tr><td><code>fecha</code></td><td class="type-cell">string</td><td>date</td><td><code>"2026-06-15"</code></td></tr>
+                <tr><td><code>hora</code></td><td class="type-cell">string</td><td>—</td><td><code>"09:30"</code></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div><!-- /schemas -->
+    </div>
+  </div><!-- /module swagger -->
+
+  <hr class="sep" />
+  <p style="font-size:12px; color:#94a3b8; text-align:center;">
+    SaludYa Backend — Documentación generada con JSDoc ·
+    Corporación Universitaria Iberoamericana · MIT License
+  </p>
+
+</main>
+
+<script>
+  // Highlight active nav link on scroll
+  const links = document.querySelectorAll("nav a");
+  const sections = [...document.querySelectorAll("[id]")];
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const id = e.target.id;
+        links.forEach(l => {
+          l.classList.toggle("active", l.getAttribute("href") === "#" + id);
+        });
+      }
+    });
+  }, { threshold: 0.3 });
+  sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>
