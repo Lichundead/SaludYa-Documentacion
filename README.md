@@ -12,13 +12,13 @@ Aquí se centraliza toda la documentación que facilita la comprensión, instala
 
 ## 🗂️ Contenido de este repositorio
 
-| Carpeta / archivo | Descripción |
-|-------------------|-------------|
-| [`docs/`](./docs) | Documentación detallada (instalación, arquitectura, base de datos, API, CI/CD, equipo) |
-| [`api/`](./api) | Documentación Swagger navegable (`index.html`) y especificación [`openapi.yaml`](./api/openapi.yaml) |
-| [`codigo-documentado/`](./codigo-documentado) | Código del backend comentado con **JSDoc** + documentación HTML generada |
-| [`wiki/`](./wiki) | Páginas listas para publicar en la **Wiki** de GitHub |
-| [`INSTRUCCIONES.md`](./INSTRUCCIONES.md) | Cómo publicar cada pieza (Wiki, GitHub Pages, repo de código) |
+| Carpeta / archivo                             | Descripción                                                                                          |
+| --------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| [`docs/`](./docs)                             | Documentación detallada (instalación, arquitectura, base de datos, API, CI/CD, equipo)               |
+| [`api/`](./api)                               | Documentación Swagger navegable (`index.html`) y especificación [`openapi.yaml`](./api/openapi.yaml) |
+| [`codigo-documentado/`](./codigo-documentado) | Código del backend comentado con **JSDoc** + documentación HTML generada                             |
+| [`wiki/`](./wiki)                             | Páginas listas para publicar en la **Wiki** de GitHub                                                |
+| [`INSTRUCCIONES.md`](./INSTRUCCIONES.md)      | Cómo publicar cada pieza (Wiki, GitHub Pages, repo de código)                                        |
 
 ### Accesos directos a la documentación
 
@@ -42,22 +42,22 @@ En muchos consultorios médicos la asignación de citas se realiza de forma manu
 - **Administración de médicos** desde el panel de administrador.
 - **Persistencia de datos** en una base de datos relacional.
 
-Desarrollado bajo metodología **SCRUM** para la cátedra *Proyecto de Software* de la Corporación Universitaria Iberoamericana.
+Desarrollado bajo metodología **SCRUM** para la cátedra _Proyecto de Software_ de la Corporación Universitaria Iberoamericana.
 
 ---
 
 ## Tecnologías utilizadas
 
-| Capa | Tecnología | Versión |
-|------|-----------|---------|
-| Frontend | React + React Router (Create React App) | 19.x / 6.x |
-| Backend | Node.js + Express | 22.x / 5.x |
-| Base de datos | SQLite (`better-sqlite3`) | 11.x |
-| Documentación API | swagger-jsdoc + swagger-ui-express (OpenAPI 3.0) | — |
-| Documentación código | JSDoc | 4.x |
-| Gestor de paquetes | pnpm (monorepo con workspaces) | 10.x |
-| CI/CD | GitHub Actions | — |
-| Hosting | Vercel (frontend) / Render (backend) | — |
+| Capa                 | Tecnología                                       | Versión    |
+| -------------------- | ------------------------------------------------ | ---------- |
+| Frontend             | React + React Router (Create React App)          | 19.x / 6.x |
+| Backend              | Node.js + Express                                | 22.x / 5.x |
+| Base de datos        | SQLite (`better-sqlite3`)                        | 11.x       |
+| Documentación API    | swagger-jsdoc + swagger-ui-express (OpenAPI 3.0) | —          |
+| Documentación código | JSDoc                                            | 4.x        |
+| Gestor de paquetes   | pnpm (monorepo con workspaces)                   | 10.x       |
+| CI/CD                | GitHub Actions                                   | —          |
+| Hosting              | Vercel (frontend) / Render (backend)             | —          |
 
 > **Nota:** el documento de diseño contempla **MySQL** como motor objetivo; la implementación usa **SQLite** por simplicidad y portabilidad. El modelo relacional es equivalente y migrable. Ver [detalles](./docs/03-modelo-de-base-de-datos.md#migración-a-mysql-futuro).
 
@@ -123,17 +123,17 @@ Guía detallada en [docs/01-instalacion-y-ejecucion.md](./docs/01-instalacion-y-
 
 La API REST está documentada con **Swagger / OpenAPI 3.0**. Hay tres formas de consultarla:
 
-1. **En vivo** (con el backend corriendo): http://localhost:3001/api-docs o https://saludyacicd.onrender.com/api-docs
+1. **En vivo** (con el backend corriendo): http://localhost:3001/api-docs o https://saludyacicd-54ta.onrender.com/api-docs
 2. **Navegable desde este repo** (GitHub Pages): publica la carpeta `api/` y abre `index.html` (ver [INSTRUCCIONES.md](./INSTRUCCIONES.md)).
 3. **Especificación estática**: [`api/openapi.yaml`](./api/openapi.yaml), importable en https://editor.swagger.io/.
 
-| Método | Endpoint | Descripción |
-|--------|----------|-------------|
-| `POST` | `/login` | Autentica a un usuario |
-| `POST` | `/register` | Registra un nuevo usuario |
-| `GET` | `/usuario/{email}` | Obtiene un usuario por correo |
-| `POST` | `/citas` | Crea una cita médica |
-| `GET` | `/citas/{email}` | Lista las citas de un paciente |
+| Método | Endpoint           | Descripción                    |
+| ------ | ------------------ | ------------------------------ |
+| `POST` | `/login`           | Autentica a un usuario         |
+| `POST` | `/register`        | Registra un nuevo usuario      |
+| `GET`  | `/usuario/{email}` | Obtiene un usuario por correo  |
+| `POST` | `/citas`           | Crea una cita médica           |
+| `GET`  | `/citas/{email}`   | Lista las citas de un paciente |
 
 Detalle en [docs/04-documentacion-de-la-api.md](./docs/04-documentacion-de-la-api.md).
 
@@ -167,7 +167,7 @@ Instrucciones de publicación en [INSTRUCCIONES.md](./INSTRUCCIONES.md).
 
 ## Equipo
 
-Ingeniería de Software — Corporación Universitaria Iberoamericana · Cátedra *Proyecto de Software*.
+Ingeniería de Software — Corporación Universitaria Iberoamericana · Cátedra _Proyecto de Software_.
 
 - Yaridiveth Soler Manjarres
 - Diego Alejandro Ortiz Granados

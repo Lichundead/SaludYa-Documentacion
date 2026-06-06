@@ -3,10 +3,11 @@
 La API REST de SaludYa está construida con **Express** y documentada con **Swagger / OpenAPI 3.0**.
 
 - **Swagger UI (local):** http://localhost:3001/api-docs
-- **Swagger UI (producción):** https://saludyacicd.onrender.com/api-docs
+- **Swagger UI (producción):** https://saludyacicd-54ta.onrender.com/api-docs
 - **Especificación estática:** [`openapi.yaml`](https://github.com/Alejandro-OrtizG/saludYaCICD/blob/main/openapi.yaml)
 
 **URL base**
+
 - Local: `http://localhost:3001`
 - Producción: `https://saludyacicd.onrender.com`
 
@@ -17,9 +18,11 @@ Todas las peticiones y respuestas usan **JSON**.
 ## Endpoints
 
 ### 🔐 `POST /login`
+
 Autentica a un usuario validando correo y contraseña.
 
 **Cuerpo de la petición**
+
 ```json
 {
   "email": "demo@saludya.com",
@@ -28,6 +31,7 @@ Autentica a un usuario validando correo y contraseña.
 ```
 
 **Respuesta `200`**
+
 ```json
 {
   "success": true,
@@ -42,14 +46,17 @@ Autentica a un usuario validando correo y contraseña.
   }
 }
 ```
+
 Si las credenciales no coinciden: `{ "success": false }`.
 
 ---
 
 ### 📝 `POST /register`
+
 Registra un nuevo usuario (paciente). El correo debe ser único.
 
 **Cuerpo de la petición**
+
 ```json
 {
   "nombre": "Juan Pérez",
@@ -63,14 +70,17 @@ Registra un nuevo usuario (paciente). El correo debe ser único.
 ```
 
 **Respuesta `200`**
+
 ```json
 { "success": true, "id": 4 }
 ```
+
 Si el correo ya existe u ocurre un error: `{ "success": false }`.
 
 ---
 
 ### 👤 `GET /usuario/{email}`
+
 Obtiene los datos de un usuario por su correo.
 
 **Parámetro de ruta**
@@ -81,6 +91,7 @@ Obtiene los datos de un usuario por su correo.
 **Ejemplo:** `GET /usuario/demo@saludya.com`
 
 **Respuesta `200`**
+
 ```json
 {
   "success": true,
@@ -91,9 +102,11 @@ Obtiene los datos de un usuario por su correo.
 ---
 
 ### 📅 `POST /citas`
+
 Crea una nueva cita médica.
 
 **Cuerpo de la petición**
+
 ```json
 {
   "paciente_email": "demo@saludya.com",
@@ -105,6 +118,7 @@ Crea una nueva cita médica.
 ```
 
 **Respuesta `200`**
+
 ```json
 { "success": true, "id": 7 }
 ```
@@ -114,6 +128,7 @@ Crea una nueva cita médica.
 ---
 
 ### 📋 `GET /citas/{email}`
+
 Lista todas las citas de un paciente.
 
 **Parámetro de ruta**
@@ -124,6 +139,7 @@ Lista todas las citas de un paciente.
 **Ejemplo:** `GET /citas/demo@saludya.com`
 
 **Respuesta `200`**
+
 ```json
 {
   "success": true,
@@ -139,19 +155,20 @@ Lista todas las citas de un paciente.
   ]
 }
 ```
+
 Si el paciente no tiene citas, `citas` es un arreglo vacío.
 
 ---
 
 ## Tabla resumen
 
-| Método | Endpoint | Descripción | Tag |
-|--------|----------|-------------|-----|
-| `POST` | `/login` | Inicia sesión | Autenticación |
-| `POST` | `/register` | Registra un usuario | Autenticación |
-| `GET` | `/usuario/{email}` | Consulta un usuario | Usuarios |
-| `POST` | `/citas` | Crea una cita | Citas |
-| `GET` | `/citas/{email}` | Lista citas de un paciente | Citas |
+| Método | Endpoint           | Descripción                | Tag           |
+| ------ | ------------------ | -------------------------- | ------------- |
+| `POST` | `/login`           | Inicia sesión              | Autenticación |
+| `POST` | `/register`        | Registra un usuario        | Autenticación |
+| `GET`  | `/usuario/{email}` | Consulta un usuario        | Usuarios      |
+| `POST` | `/citas`           | Crea una cita              | Citas         |
+| `GET`  | `/citas/{email}`   | Lista citas de un paciente | Citas         |
 
 ## Cómo se genera la documentación
 
