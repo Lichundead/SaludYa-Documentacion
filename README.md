@@ -17,8 +17,6 @@ Aquí se centraliza toda la documentación que facilita la comprensión, instala
 | [`docs/`](./docs)                             | Documentación detallada (instalación, arquitectura, base de datos, API, CI/CD, equipo)               |
 | [`api/`](./api)                               | Documentación Swagger navegable (`index.html`) y especificación [`openapi.yaml`](./api/openapi.yaml) |
 | [`codigo-documentado/`](./codigo-documentado) | Código del backend comentado con **JSDoc** + documentación HTML generada                             |
-| [`wiki/`](./wiki)                             | Páginas listas para publicar en la **Wiki** de GitHub                                                |
-| [`INSTRUCCIONES.md`](./INSTRUCCIONES.md)      | Cómo publicar cada pieza (Wiki, GitHub Pages, repo de código)                                        |
 
 ### Accesos directos a la documentación
 
