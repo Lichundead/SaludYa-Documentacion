@@ -147,7 +147,7 @@ El backend está comentado con **JSDoc** (descripción, `@param`, `@returns`) en
 Para regenerarla:
 
 ```bash
-cd backend
+cd codigo-documentado
 npx jsdoc server.js database.js swagger.js -d ./docs-html
 ```
 
@@ -155,7 +155,7 @@ npx jsdoc server.js database.js swagger.js -d ./docs-html
 
 ## Wiki
 
-La carpeta [`wiki/`](./wiki) contiene las páginas listas para la **Wiki de GitHub** de este repositorio. Una vez publicada estará en:
+La sección [`wiki/`](https://github.com/Lichundead/SaludYa-Documentacion/wiki) contiene las páginas listas para la **Wiki de GitHub** de este repositorio. Una vez publicada estará en:
 
 `https://github.com/Lichundead/SaludYa-Documentacion/wiki`
 
