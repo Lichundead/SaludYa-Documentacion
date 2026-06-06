@@ -124,7 +124,7 @@ Guía detallada en [docs/01-instalacion-y-ejecucion.md](./docs/01-instalacion-y-
 La API REST está documentada con **Swagger / OpenAPI 3.0**. Hay tres formas de consultarla:
 
 1. **En vivo** (con el backend corriendo): http://localhost:3001/api-docs o https://saludyacicd-54ta.onrender.com/api-docs
-2. **Navegable desde este repo** (GitHub Pages): publica la carpeta `api/` y abre `index.html` (ver [INSTRUCCIONES.md](./INSTRUCCIONES.md)).
+2. **Navegable desde este repo** (GitHub Pages): publica la carpeta `api/` y abre `index.html`
 3. **Especificación estática**: [`api/openapi.yaml`](./api/openapi.yaml), importable en https://editor.swagger.io/.
 
 | Método | Endpoint           | Descripción                    |
@@ -160,8 +160,6 @@ npx jsdoc server.js database.js swagger.js -d ./docs-html
 La carpeta [`wiki/`](./wiki) contiene las páginas listas para la **Wiki de GitHub** de este repositorio. Una vez publicada estará en:
 
 `https://github.com/Lichundead/SaludYa-Documentacion/wiki`
-
-Instrucciones de publicación en [INSTRUCCIONES.md](./INSTRUCCIONES.md).
 
 ---
 
