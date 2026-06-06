@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>API de SaludYa — Documentación Swagger</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swagger-ui-dist@5/swagger-ui.css"
+    />
+    <link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgo=" />
+    <style>
+      body { margin: 0; background: #fafafa; }
+      .topbar { display: none; }
+      .saludya-header {
+        background: #2563EB;
+        color: #fff;
+        padding: 18px 24px;
+        font-family: sans-serif;
+      }
+      .saludya-header h1 { margin: 0; font-size: 20px; }
+      .saludya-header p { margin: 4px 0 0; font-size: 13px; opacity: 0.9; }
+    </style>
+  </head>
+  <body>
+    <div class="saludya-header">
+      <h1>🏥 API de SaludYa</h1>
+      <p>Documentación interactiva de los endpoints REST · OpenAPI 3.0</p>
+    </div>
+    <div id="swagger-ui"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/swagger-ui-dist@5/swagger-ui-bundle.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swagger-ui-dist@5/swagger-ui-standalone-preset.js"></script>
+    <script>
+      window.onload = function () {
+        window.ui = SwaggerUIBundle({
+          url: "openapi.yaml",
+          dom_id: "#swagger-ui",
+          deepLinking: true,
+          presets: [
+            SwaggerUIBundle.presets.apis,
+            SwaggerUIStandalonePreset,
+          ],
+          layout: "StandaloneLayout",
+        });
+      };
+    </script>
+  </body>
+</html>
